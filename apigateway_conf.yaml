@@ -1,9 +1,10 @@
 gatewayConfig:
-  scheme:
-  hostName:
-  port:
-  path:
+  scheme: http://
+  hostName: localhost
+  port: 6243
+  path: /api/g
   requestDelay: 500
+  numThreads: 3
 
 loggerConfig:
   outputDir: ./logs/
@@ -11,63 +12,64 @@ loggerConfig:
 
 databaseConfig:
   dbConnections: 3
-  dbUsername:
-  dbPassword:
-  dbHostname:
-  dbPort:
+  dbUsername: testuser
+  dbPassword: testuser
+  dbHostname: localhost
+  dbPort: 3306
   dbDriver: com.mysql.cj.jdbc.Driver
-  dbName:
+  dbName: apiGateWaydb
   dbSettings: ?autoReconnect=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=PST
 
 idmConfig:
-  scheme:
-  hostName:
-  port:
-  path:
+  scheme: http://
+  hostName: localhost
+  port: 6244
+  path: /api/idm
 
 idmEndpoints:
-  EPUserRegister:
-  EPUserLogin:
-  EPSessionVerify:
-  EPUserPrivilegeVerify:
+  EPUserRegister: /register
+  EPUserLogin: /login
+  EPSessionVerify: /session
+  EPUserPrivilegeVerify: /privilege
 
 moviesConfig:
-  scheme:
-  hostName:
-  port:
-  path:
+  scheme: http://
+  hostName: localhost
+  port: 6245
+  path: /api/movies
 
 moviesEndpoints:
-  EPMovieSearch:
-  EPMovieGet:
-  EPMovieAdd:
-  EPMovieDelete:
-  EPGenreGet:
-  EPGenreAdd:
-  EPGenreMovie:
-  EPStarSearch:
-  EPStarGet:
-  EPStarAdd:
-  EPStarIn:
-  EPRating:
+  EPMovieSearch: /search
+  EPMovieGet: /get/{movieid}
+  EPMovieAdd: /add
+  EPMovieDelete: /delete/{movieid}
+  EPGenreGet: /genre
+  EPGenreAdd: /genre/add
+  EPGenreMovie: /genre/{movieid}
+  EPStarSearch: /star/search
+  EPStarGet: /star/{id}
+  EPStarAdd: /star/add
+  EPStarIn: /star/starsin
+  EPRating: /rating
 
 billingConfig:
-  scheme:
-  hostName:
-  port:
-  path:
+  scheme: http://
+  hostName: localhost
+  port: 6246
+  path: /api/billing
 
 billingEndpoints:
-  EPCartUpdate:
-  EPCartDelete:
-  EPCartRetrieve:
-  EPCartClear:
-  EPCcInsert:
-  EPCcUpdate:
-  EPCcDelete:
-  EPCcRetrieve:
-  EPCustomerInsert:
-  EPCustomerUpdate:
-  EPCustomerRetrieve:
-  EPOrderPlace:
-  EPOrderRetrieve:
+  EPCartInsert: /cart/insert
+  EPCartUpdate: /cart/update
+  EPCartDelete: /cart/delete
+  EPCartRetrieve: /cart/retrieve
+  EPCartClear: /cart/clear
+  EPCcInsert: /creditcard/inser
+  EPCcUpdate: /credicard/update
+  EPCcDelete: /creditcard/delete
+  EPCcRetrieve: /creditcard/retrieve
+  EPCustomerInsert: /customer/insert
+  EPCustomerUpdate: /customer/update
+  EPCustomerRetrieve: /customer/retrieve
+  EPOrderPlace: /order/place
+  EPOrderRetrieve: /order/retrieve
