@@ -66,9 +66,9 @@ public class ResultCodes {
     public static String setMessage(int code) {
         switch (code) {
             case JSON_MAPPING_EXCEPTION:
-                return "JSON mapping exception occurred.";
+                return "JSON mapping exception.";
             case JSON_PARSE_EXCEPTION:
-                return "JSON parse exception occurred.";
+                return "JSON parse exception.";
             case EMAIL_INVALID_LENGTH:
                 return "Email address has invalid length.";
             case EMAIL_INVALID_FORMAT:
