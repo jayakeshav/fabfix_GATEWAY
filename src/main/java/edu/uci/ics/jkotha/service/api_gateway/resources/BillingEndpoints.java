@@ -6,10 +6,13 @@ import edu.uci.ics.jkotha.service.api_gateway.exceptions.ModelValidationExceptio
 import edu.uci.ics.jkotha.service.api_gateway.logger.ServiceLogger;
 import edu.uci.ics.jkotha.service.api_gateway.models.BillingModels.*;
 import edu.uci.ics.jkotha.service.api_gateway.models.DefaultResponseModel;
+import edu.uci.ics.jkotha.service.api_gateway.models.IdmModels.SessionResponseModel;
 import edu.uci.ics.jkotha.service.api_gateway.models.NoContentResponseModel;
 import edu.uci.ics.jkotha.service.api_gateway.threadpool.ClientRequest;
 import edu.uci.ics.jkotha.service.api_gateway.threadpool.ThreadPool;
+import edu.uci.ics.jkotha.service.api_gateway.utilities.CheckSession;
 import edu.uci.ics.jkotha.service.api_gateway.utilities.ModelValidator;
+import edu.uci.ics.jkotha.service.api_gateway.utilities.ResultCodes;
 import edu.uci.ics.jkotha.service.api_gateway.utilities.TransactionIDGenerator;
 
 import javax.ws.rs.Consumes;
@@ -57,11 +60,15 @@ public class BillingEndpoints {
         cr.setTransactionID(transactionID);
         cr.setMethod("post");
 
+        cr = CheckSession.verifySessionResponse(cr);
+        if (cr.isSessionExpired()) {
+            SessionResponseModel responseModel = new SessionResponseModel(cr.getResultCode(), ResultCodes.setMessage(cr.getResultCode()));
+            return Response.status(Status.BAD_REQUEST).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
+        }
+
         threadPool.add(cr);
 
-        NoContentResponseModel responseModel = new NoContentResponseModel(delay,transactionID);
-
-        return Response.status(Status.NO_CONTENT).header("transactionId",transactionID).entity(responseModel).build();
+        return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 
     @Path("cart/update")
@@ -93,11 +100,15 @@ public class BillingEndpoints {
         cr.setTransactionID(transactionID);
         cr.setMethod("post");
 
+        cr = CheckSession.verifySessionResponse(cr);
+        if (cr.isSessionExpired()) {
+            SessionResponseModel responseModel = new SessionResponseModel(cr.getResultCode(), ResultCodes.setMessage(cr.getResultCode()));
+            return Response.status(Status.BAD_REQUEST).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
+        }
+
         threadPool.add(cr);
 
-        NoContentResponseModel responseModel = new NoContentResponseModel(delay,transactionID);
-
-        return Response.status(Status.NO_CONTENT).header("transactionId",transactionID).entity(responseModel).build();
+        return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 
     @Path("cart/delete")
@@ -129,11 +140,15 @@ public class BillingEndpoints {
         cr.setTransactionID(transactionID);
         cr.setMethod("post");
 
+        cr = CheckSession.verifySessionResponse(cr);
+        if (cr.isSessionExpired()) {
+            SessionResponseModel responseModel = new SessionResponseModel(cr.getResultCode(), ResultCodes.setMessage(cr.getResultCode()));
+            return Response.status(Status.BAD_REQUEST).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
+        }
+
         threadPool.add(cr);
 
-        NoContentResponseModel responseModel = new NoContentResponseModel(delay,transactionID);
-
-        return Response.status(Status.NO_CONTENT).header("transactionId",transactionID).entity(responseModel).build();
+        return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 
     @Path("cart/retrieve")
@@ -165,11 +180,15 @@ public class BillingEndpoints {
         cr.setTransactionID(transactionID);
         cr.setMethod("post");
 
+        cr = CheckSession.verifySessionResponse(cr);
+        if (cr.isSessionExpired()) {
+            SessionResponseModel responseModel = new SessionResponseModel(cr.getResultCode(), ResultCodes.setMessage(cr.getResultCode()));
+            return Response.status(Status.BAD_REQUEST).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
+        }
+
         threadPool.add(cr);
 
-        NoContentResponseModel responseModel = new NoContentResponseModel(delay,transactionID);
-
-        return Response.status(Status.NO_CONTENT).header("transactionId",transactionID).entity(responseModel).build();
+        return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 
     @Path("cart/clear")
@@ -201,11 +220,15 @@ public class BillingEndpoints {
         cr.setTransactionID(transactionID);
         cr.setMethod("post");
 
+        cr = CheckSession.verifySessionResponse(cr);
+        if (cr.isSessionExpired()) {
+            SessionResponseModel responseModel = new SessionResponseModel(cr.getResultCode(), ResultCodes.setMessage(cr.getResultCode()));
+            return Response.status(Status.BAD_REQUEST).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
+        }
+
         threadPool.add(cr);
 
-        NoContentResponseModel responseModel = new NoContentResponseModel(delay,transactionID);
-
-        return Response.status(Status.NO_CONTENT).header("transactionId",transactionID).entity(responseModel).build();
+        return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 
     @Path("creditcard/insert")
@@ -237,11 +260,15 @@ public class BillingEndpoints {
         cr.setTransactionID(transactionID);
         cr.setMethod("post");
 
+        cr = CheckSession.verifySessionResponse(cr);
+        if (cr.isSessionExpired()) {
+            SessionResponseModel responseModel = new SessionResponseModel(cr.getResultCode(), ResultCodes.setMessage(cr.getResultCode()));
+            return Response.status(Status.BAD_REQUEST).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
+        }
+
         threadPool.add(cr);
 
-        NoContentResponseModel responseModel = new NoContentResponseModel(delay,transactionID);
-
-        return Response.status(Status.NO_CONTENT).header("transactionId",transactionID).entity(responseModel).build();
+        return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 
     @Path("creditcard/update")
@@ -273,11 +300,15 @@ public class BillingEndpoints {
         cr.setTransactionID(transactionID);
         cr.setMethod("post");
 
+        cr = CheckSession.verifySessionResponse(cr);
+        if (cr.isSessionExpired()) {
+            SessionResponseModel responseModel = new SessionResponseModel(cr.getResultCode(), ResultCodes.setMessage(cr.getResultCode()));
+            return Response.status(Status.BAD_REQUEST).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
+        }
+
         threadPool.add(cr);
 
-        NoContentResponseModel responseModel = new NoContentResponseModel(delay,transactionID);
-
-        return Response.status(Status.NO_CONTENT).header("transactionId",transactionID).entity(responseModel).build();
+        return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 
     @Path("creditcard/delete")
@@ -309,11 +340,15 @@ public class BillingEndpoints {
         cr.setTransactionID(transactionID);
         cr.setMethod("post");
 
+        cr = CheckSession.verifySessionResponse(cr);
+        if (cr.isSessionExpired()) {
+            SessionResponseModel responseModel = new SessionResponseModel(cr.getResultCode(), ResultCodes.setMessage(cr.getResultCode()));
+            return Response.status(Status.BAD_REQUEST).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
+        }
+
         threadPool.add(cr);
 
-        NoContentResponseModel responseModel = new NoContentResponseModel(delay,transactionID);
-
-        return Response.status(Status.NO_CONTENT).header("transactionId",transactionID).entity(responseModel).build();
+        return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 
     @Path("creditcard/retrieve")
@@ -345,11 +380,15 @@ public class BillingEndpoints {
         cr.setTransactionID(transactionID);
         cr.setMethod("post");
 
+        cr = CheckSession.verifySessionResponse(cr);
+        if (cr.isSessionExpired()) {
+            SessionResponseModel responseModel = new SessionResponseModel(cr.getResultCode(), ResultCodes.setMessage(cr.getResultCode()));
+            return Response.status(Status.BAD_REQUEST).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
+        }
+
         threadPool.add(cr);
 
-        NoContentResponseModel responseModel = new NoContentResponseModel(delay,transactionID);
-
-        return Response.status(Status.NO_CONTENT).header("transactionId",transactionID).entity(responseModel).build();
+        return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 
     @Path("customer/insert")
@@ -381,11 +420,15 @@ public class BillingEndpoints {
         cr.setTransactionID(transactionID);
         cr.setMethod("post");
 
+        cr = CheckSession.verifySessionResponse(cr);
+        if (cr.isSessionExpired()) {
+            SessionResponseModel responseModel = new SessionResponseModel(cr.getResultCode(), ResultCodes.setMessage(cr.getResultCode()));
+            return Response.status(Status.BAD_REQUEST).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
+        }
+
         threadPool.add(cr);
 
-        NoContentResponseModel responseModel = new NoContentResponseModel(delay,transactionID);
-
-        return Response.status(Status.NO_CONTENT).header("transactionId",transactionID).entity(responseModel).build();
+        return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 
     @Path("customer/update")
@@ -417,11 +460,15 @@ public class BillingEndpoints {
         cr.setTransactionID(transactionID);
         cr.setMethod("post");
 
+        cr = CheckSession.verifySessionResponse(cr);
+        if (cr.isSessionExpired()) {
+            SessionResponseModel responseModel = new SessionResponseModel(cr.getResultCode(), ResultCodes.setMessage(cr.getResultCode()));
+            return Response.status(Status.BAD_REQUEST).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
+        }
+
         threadPool.add(cr);
 
-        NoContentResponseModel responseModel = new NoContentResponseModel(delay,transactionID);
-
-        return Response.status(Status.NO_CONTENT).header("transactionId",transactionID).entity(responseModel).build();
+        return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 
     @Path("customer/retrieve")
@@ -453,11 +500,15 @@ public class BillingEndpoints {
         cr.setTransactionID(transactionID);
         cr.setMethod("post");
 
+        cr = CheckSession.verifySessionResponse(cr);
+        if (cr.isSessionExpired()) {
+            SessionResponseModel responseModel = new SessionResponseModel(cr.getResultCode(), ResultCodes.setMessage(cr.getResultCode()));
+            return Response.status(Status.BAD_REQUEST).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
+        }
+
         threadPool.add(cr);
 
-        NoContentResponseModel responseModel = new NoContentResponseModel(delay,transactionID);
-
-        return Response.status(Status.NO_CONTENT).header("transactionId",transactionID).entity(responseModel).build();
+        return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 
     @Path("order/place")
@@ -489,11 +540,16 @@ public class BillingEndpoints {
         cr.setTransactionID(transactionID);
         cr.setMethod("post");
 
+        cr = CheckSession.verifySessionResponse(cr);
+        if (cr.isSessionExpired()) {
+            SessionResponseModel responseModel = new SessionResponseModel(cr.getResultCode(), ResultCodes.setMessage(cr.getResultCode()));
+            return Response.status(Status.BAD_REQUEST).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
+        }
+
         threadPool.add(cr);
 
-        NoContentResponseModel responseModel = new NoContentResponseModel(delay,transactionID);
 
-        return Response.status(Status.NO_CONTENT).header("transactionId",transactionID).entity(responseModel).build();
+        return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 
     @Path("order/retrieve")
@@ -525,10 +581,15 @@ public class BillingEndpoints {
         cr.setTransactionID(transactionID);
         cr.setMethod("post");
 
+        cr = CheckSession.verifySessionResponse(cr);
+        if (cr.isSessionExpired()) {
+            SessionResponseModel responseModel = new SessionResponseModel(cr.getResultCode(), ResultCodes.setMessage(cr.getResultCode()));
+            return Response.status(Status.BAD_REQUEST).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
+        }
+
         threadPool.add(cr);
 
-        NoContentResponseModel responseModel = new NoContentResponseModel(delay,transactionID);
 
-        return Response.status(Status.NO_CONTENT).header("transactionId",transactionID).entity(responseModel).build();
+        return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 }

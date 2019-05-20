@@ -14,9 +14,11 @@ public class ClientRequest {
     private String method;
     private Map<String, Object> pathParam;
     private Map<String,Object> queryParamValues;
+    private int resultCode;
+    private boolean sessionExpired;
 
     public ClientRequest() {
-
+        this.sessionExpired = false;
     }
 
     public ClientRequest(String email, String sessionID, String transactionID, RequestModel request, String URI, String endpoint, String method) {
@@ -27,6 +29,7 @@ public class ClientRequest {
         this.URI = URI;
         this.endpoint = endpoint;
         this.method = method;
+        this.sessionExpired = false;
     }
 
     public String getEmail() {
@@ -92,4 +95,20 @@ public class ClientRequest {
     public Map<String, Object> getQueryParamValues() { return queryParamValues; }
 
     public void setQueryParamValues(Map<String, Object> queryParamValues) { this.queryParamValues = queryParamValues; }
+
+    public void setResultCode(int resultCode) {
+        this.resultCode = resultCode;
+    }
+
+    public void setSessionExpired(boolean sessionExpired) {
+        this.sessionExpired = sessionExpired;
+    }
+
+    public int getResultCode() {
+        return resultCode;
+    }
+
+    public boolean isSessionExpired() {
+        return sessionExpired;
+    }
 }

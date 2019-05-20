@@ -58,9 +58,8 @@ public class IDMEndpoints {
 
         threadPool.add(cr);
 
-        NoContentResponseModel responseModel = new NoContentResponseModel(delay,transactionId);
 
-        return Response.status(Status.NO_CONTENT).header("transactionId",transactionId).entity(responseModel).build();
+        return Response.status(Status.NO_CONTENT).header("transactionID", transactionId).header("delay", delay).build();
     }
 
     @Path("login")
@@ -90,9 +89,7 @@ public class IDMEndpoints {
 
         threadPool.add(cr);
 
-        NoContentResponseModel responseModel = new NoContentResponseModel(delay,transactionId);
-
-        return Response.status(Status.NO_CONTENT).header("transactionId",transactionId).entity(responseModel).build();
+        return Response.status(Status.NO_CONTENT).header("transactionID", transactionId).header("delay", delay).build();
     }
 
     @Path("session")
@@ -123,9 +120,7 @@ public class IDMEndpoints {
 
         threadPool.add(cr);
 
-        NoContentResponseModel responseModel = new NoContentResponseModel(delay,transactionId);
-
-        return Response.status(Status.NO_CONTENT).header("transactionId",transactionId).entity(responseModel).build();
+        return Response.status(Status.NO_CONTENT).header("transactionID", transactionId).header("delay", delay).build();
     }
 
     @Path("privilege")
@@ -156,8 +151,6 @@ public class IDMEndpoints {
 
         threadPool.add(cr);
 
-        NoContentResponseModel responseModel = new NoContentResponseModel(delay,transactionId);
-
-        return Response.status(Status.NO_CONTENT).header("transactionId",transactionId).entity(responseModel).build();
+        return Response.status(Status.NO_CONTENT).header("transactionID", transactionId).header("delay", delay).build();
     }
 }

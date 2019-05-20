@@ -6,11 +6,14 @@ import edu.uci.ics.jkotha.service.api_gateway.configs.MovieConfigs;
 import edu.uci.ics.jkotha.service.api_gateway.exceptions.ModelValidationException;
 import edu.uci.ics.jkotha.service.api_gateway.logger.ServiceLogger;
 import edu.uci.ics.jkotha.service.api_gateway.models.DefaultResponseModel;
+import edu.uci.ics.jkotha.service.api_gateway.models.IdmModels.SessionResponseModel;
 import edu.uci.ics.jkotha.service.api_gateway.models.MovieModels.*;
 import edu.uci.ics.jkotha.service.api_gateway.models.NoContentResponseModel;
 import edu.uci.ics.jkotha.service.api_gateway.threadpool.ClientRequest;
 import edu.uci.ics.jkotha.service.api_gateway.threadpool.ThreadPool;
+import edu.uci.ics.jkotha.service.api_gateway.utilities.CheckSession;
 import edu.uci.ics.jkotha.service.api_gateway.utilities.ModelValidator;
+import edu.uci.ics.jkotha.service.api_gateway.utilities.ResultCodes;
 import edu.uci.ics.jkotha.service.api_gateway.utilities.TransactionIDGenerator;
 
 import javax.ws.rs.*;
@@ -74,10 +77,15 @@ public class MovieEndpoints {
         cr.setMethod("get");
         cr.setQueryParamValues(qpMap);
 
+        cr = CheckSession.verifySessionResponse(cr);
+        if (cr.isSessionExpired()) {
+            SessionResponseModel responseModel = new SessionResponseModel(cr.getResultCode(), ResultCodes.setMessage(cr.getResultCode()));
+            return Response.status(Status.BAD_REQUEST).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
+        }
+        
         threadPool.add(cr);
 
-        NoContentResponseModel responseModel = new NoContentResponseModel(delay, transactionID);
-        return Response.status(Status.NO_CONTENT).header("transactionId",transactionID).entity(responseModel).build();
+        return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 
     @Path("get/{movieid}")
@@ -106,10 +114,14 @@ public class MovieEndpoints {
         cr.setMethod("get");
         cr.setPathParam(ppMap);
 
+        cr = CheckSession.verifySessionResponse(cr);
+        if (cr.isSessionExpired()) {
+            SessionResponseModel responseModel = new SessionResponseModel(cr.getResultCode(), ResultCodes.setMessage(cr.getResultCode()));
+            return Response.status(Status.BAD_REQUEST).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
+        }
         threadPool.add(cr);
 
-        NoContentResponseModel responseModel = new NoContentResponseModel(delay, transactionID);
-        return Response.status(Status.NO_CONTENT).header("transactionId",transactionID).entity(responseModel).build();
+        return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 
     @Path("add")
@@ -143,10 +155,15 @@ public class MovieEndpoints {
         cr.setRequest(requestModel);
         cr.setMethod("post");
 
+        cr = CheckSession.verifySessionResponse(cr);
+        if (cr.isSessionExpired()) {
+            SessionResponseModel responseModel = new SessionResponseModel(cr.getResultCode(), ResultCodes.setMessage(cr.getResultCode()));
+            return Response.status(Status.BAD_REQUEST).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
+        }
+
         threadPool.add(cr);
 
-        NoContentResponseModel responseModel = new NoContentResponseModel(delay, transactionID);
-        return Response.status(Status.NO_CONTENT).header("transactionId",transactionID).entity(responseModel).build();
+        return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 
     @Path("delete/{movieid}")
@@ -175,10 +192,15 @@ public class MovieEndpoints {
         cr.setMethod("delete");
         cr.setPathParam(ppMap);
 
+        cr = CheckSession.verifySessionResponse(cr);
+        if (cr.isSessionExpired()) {
+            SessionResponseModel responseModel = new SessionResponseModel(cr.getResultCode(), ResultCodes.setMessage(cr.getResultCode()));
+            return Response.status(Status.BAD_REQUEST).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
+        }
+
         threadPool.add(cr);
 
-        NoContentResponseModel responseModel = new NoContentResponseModel(delay, transactionID);
-        return Response.status(Status.NO_CONTENT).header("transactionId",transactionID).entity(responseModel).build();
+        return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 
     @Path("genre")
@@ -201,10 +223,15 @@ public class MovieEndpoints {
         cr.setTransactionID(transactionID);
         cr.setMethod("get");
 
+        cr = CheckSession.verifySessionResponse(cr);
+        if (cr.isSessionExpired()) {
+            SessionResponseModel responseModel = new SessionResponseModel(cr.getResultCode(), ResultCodes.setMessage(cr.getResultCode()));
+            return Response.status(Status.BAD_REQUEST).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
+        }
+
         threadPool.add(cr);
 
-        NoContentResponseModel responseModel = new NoContentResponseModel(delay, transactionID);
-        return Response.status(Status.NO_CONTENT).header("transactionId",transactionID).entity(responseModel).build();
+        return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 
     @Path("genre/add")
@@ -237,10 +264,15 @@ public class MovieEndpoints {
         cr.setRequest(requestModel);
         cr.setMethod("post");
 
+        cr = CheckSession.verifySessionResponse(cr);
+        if (cr.isSessionExpired()) {
+            SessionResponseModel responseModel = new SessionResponseModel(cr.getResultCode(), ResultCodes.setMessage(cr.getResultCode()));
+            return Response.status(Status.BAD_REQUEST).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
+        }
+
         threadPool.add(cr);
 
-        NoContentResponseModel responseModel = new NoContentResponseModel(delay, transactionID);
-        return Response.status(Status.NO_CONTENT).header("transactionId",transactionID).entity(responseModel).build();
+        return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 
     @Path("genre/{movieid}")
@@ -269,10 +301,15 @@ public class MovieEndpoints {
         cr.setMethod("get");
         cr.setPathParam(ppMap);
 
+        cr = CheckSession.verifySessionResponse(cr);
+        if (cr.isSessionExpired()) {
+            SessionResponseModel responseModel = new SessionResponseModel(cr.getResultCode(), ResultCodes.setMessage(cr.getResultCode()));
+            return Response.status(Status.BAD_REQUEST).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
+        }
+
         threadPool.add(cr);
 
-        NoContentResponseModel responseModel = new NoContentResponseModel(delay, transactionID);
-        return Response.status(Status.NO_CONTENT).header("transactionId",transactionID).entity(responseModel).build();
+        return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 
     @Path("star/search")
@@ -316,10 +353,15 @@ public class MovieEndpoints {
         cr.setMethod("get");
         cr.setQueryParamValues(qpMap);
 
+        cr = CheckSession.verifySessionResponse(cr);
+        if (cr.isSessionExpired()) {
+            SessionResponseModel responseModel = new SessionResponseModel(cr.getResultCode(), ResultCodes.setMessage(cr.getResultCode()));
+            return Response.status(Status.BAD_REQUEST).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
+        }
+
         threadPool.add(cr);
 
-        NoContentResponseModel responseModel = new NoContentResponseModel(delay, transactionID);
-        return Response.status(Status.NO_CONTENT).header("transactionId",transactionID).entity(responseModel).build();
+        return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 
     @Path("star/{id}")
@@ -349,10 +391,15 @@ public class MovieEndpoints {
         cr.setMethod("get");
         cr.setPathParam(ppMap);
 
+        cr = CheckSession.verifySessionResponse(cr);
+        if (cr.isSessionExpired()) {
+            SessionResponseModel responseModel = new SessionResponseModel(cr.getResultCode(), ResultCodes.setMessage(cr.getResultCode()));
+            return Response.status(Status.BAD_REQUEST).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
+        }
+
         threadPool.add(cr);
 
-        NoContentResponseModel responseModel = new NoContentResponseModel(delay, transactionID);
-        return Response.status(Status.NO_CONTENT).header("transactionId",transactionID).entity(responseModel).build();
+        return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 
     @Path("star/add")
@@ -385,10 +432,15 @@ public class MovieEndpoints {
         cr.setRequest(requestModel);
         cr.setMethod("post");
 
+        cr = CheckSession.verifySessionResponse(cr);
+        if (cr.isSessionExpired()) {
+            SessionResponseModel responseModel = new SessionResponseModel(cr.getResultCode(), ResultCodes.setMessage(cr.getResultCode()));
+            return Response.status(Status.BAD_REQUEST).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
+        }
+
         threadPool.add(cr);
 
-        NoContentResponseModel responseModel = new NoContentResponseModel(delay, transactionID);
-        return Response.status(Status.NO_CONTENT).header("transactionId",transactionID).entity(responseModel).build();
+        return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 
     @Path("star/starsin")
@@ -421,10 +473,15 @@ public class MovieEndpoints {
         cr.setRequest(requestModel);
         cr.setMethod("post");
 
+        cr = CheckSession.verifySessionResponse(cr);
+        if (cr.isSessionExpired()) {
+            SessionResponseModel responseModel = new SessionResponseModel(cr.getResultCode(), ResultCodes.setMessage(cr.getResultCode()));
+            return Response.status(Status.BAD_REQUEST).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
+        }
+
         threadPool.add(cr);
 
-        NoContentResponseModel responseModel = new NoContentResponseModel(delay, transactionID);
-        return Response.status(Status.NO_CONTENT).header("transactionId",transactionID).entity(responseModel).build();
+        return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 
     @Path("rating")
@@ -457,9 +514,14 @@ public class MovieEndpoints {
         cr.setRequest(requestModel);
         cr.setMethod("post");
 
+        cr = CheckSession.verifySessionResponse(cr);
+        if (cr.isSessionExpired()) {
+            SessionResponseModel responseModel = new SessionResponseModel(cr.getResultCode(), ResultCodes.setMessage(cr.getResultCode()));
+            return Response.status(Status.BAD_REQUEST).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
+        }
+
         threadPool.add(cr);
 
-        NoContentResponseModel responseModel = new NoContentResponseModel(delay, transactionID);
-        return Response.status(Status.NO_CONTENT).header("transactionId",transactionID).entity(responseModel).build();
+        return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 }

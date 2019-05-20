@@ -28,11 +28,11 @@ public class ResultCodes {
     public static final int LOGIN_SUCCESSFUL = 120;
 
     // api/idm/session
-    public static final int SESSION_NOT_FOUND = 130;
-    public static final int SESSION_ACTIVE = 131;
-    public static final int SESSION_EXPIRED = 132;
-    public static final int SESSION_CLOSED = 133;
-    public static final int SESSION_REVOKED = 134;
+    public static final int SESSION_NOT_FOUND = 134;
+    public static final int SESSION_ACTIVE = 130;
+    public static final int SESSION_EXPIRED = 131;
+    public static final int SESSION_CLOSED = 132;
+    public static final int SESSION_REVOKED = 133;
     public static final int SESSION_TIMEOUT = 135;
 
     // api/idm/user/privilege

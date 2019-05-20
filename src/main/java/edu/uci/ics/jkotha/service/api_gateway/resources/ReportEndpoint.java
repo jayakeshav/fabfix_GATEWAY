@@ -18,6 +18,8 @@ import java.sql.SQLException;
 
 @Path("report")
 public class ReportEndpoint {
+    private static int delay = GatewayService.getGatewayConfigs().getRequestDelay();
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response getReport(@Context HttpHeaders headers){
@@ -27,7 +29,7 @@ public class ReportEndpoint {
         String sessionId = headers.getHeaderString("sessionID");
         String transactionId = headers.getHeaderString("transactionID");
 
-        String get = "select response,httpstatus from responses where transactionid=?";
+        String get = "select sessionid,response,httpstatus from responses where transactionid=?";
         try {
             PreparedStatement ps = GatewayService.getConPool().requestCon().prepareStatement(get);
             ps.setString(1,transactionId);
@@ -35,12 +37,12 @@ public class ReportEndpoint {
             if (rs.next()){
                 String jsonText = rs.getString("response");
                 int httpStatus = rs.getInt("httpstatus");
+                sessionId = rs.getString("sessionid");
 
                 return Response.status(httpStatus).entity(jsonText).header("email",email).header("sessionId",sessionId).build();
             }
             else {
-                NoRequestResponseModel responseModel = new NoRequestResponseModel();
-                return Response.status(Response.Status.NO_CONTENT).header("email",email).header("sessionId",sessionId).header("transactionId",transactionId).entity(responseModel).build();
+                return Response.status(Response.Status.NO_CONTENT).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).header("delay", delay).build();
             }
         }catch (SQLException e){
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
