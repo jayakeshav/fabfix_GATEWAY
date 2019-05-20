@@ -48,6 +48,13 @@ public class BillingEndpoints {
         String email = headers.getHeaderString("email");
         String sessionId = headers.getHeaderString("sessionID");
 
+        //verify session is given
+        if (sessionId == null) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        } else if (sessionId.length() == 0) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        }
+
         //Transaction ID:
         String transactionID = TransactionIDGenerator.generateTransactionID();
 
@@ -87,6 +94,13 @@ public class BillingEndpoints {
 
         String email = headers.getHeaderString("email");
         String sessionId = headers.getHeaderString("sessionID");
+
+        //verify session is given
+        if (sessionId == null) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        } else if (sessionId.length() == 0) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        }
 
         //Transaction ID:
         String transactionID = TransactionIDGenerator.generateTransactionID();
@@ -128,6 +142,13 @@ public class BillingEndpoints {
         String email = headers.getHeaderString("email");
         String sessionId = headers.getHeaderString("sessionID");
 
+        //verify session is given
+        if (sessionId == null) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        } else if (sessionId.length() == 0) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        }
+
         //Transaction ID:
         String transactionID = TransactionIDGenerator.generateTransactionID();
 
@@ -167,6 +188,13 @@ public class BillingEndpoints {
 
         String email = headers.getHeaderString("email");
         String sessionId = headers.getHeaderString("sessionID");
+
+        //verify session is given
+        if (sessionId == null) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        } else if (sessionId.length() == 0) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        }
 
         //Transaction ID:
         String transactionID = TransactionIDGenerator.generateTransactionID();
@@ -208,6 +236,13 @@ public class BillingEndpoints {
         String email = headers.getHeaderString("email");
         String sessionId = headers.getHeaderString("sessionID");
 
+        //verify session is given
+        if (sessionId == null) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        } else if (sessionId.length() == 0) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        }
+
         //Transaction ID:
         String transactionID = TransactionIDGenerator.generateTransactionID();
 
@@ -247,6 +282,13 @@ public class BillingEndpoints {
 
         String email = headers.getHeaderString("email");
         String sessionId = headers.getHeaderString("sessionID");
+
+        //verify session is given
+        if (sessionId == null) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        } else if (sessionId.length() == 0) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        }
 
         //Transaction ID:
         String transactionID = TransactionIDGenerator.generateTransactionID();
@@ -288,6 +330,13 @@ public class BillingEndpoints {
         String email = headers.getHeaderString("email");
         String sessionId = headers.getHeaderString("sessionID");
 
+        //verify session is given
+        if (sessionId == null) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        } else if (sessionId.length() == 0) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        }
+
         //Transaction ID:
         String transactionID = TransactionIDGenerator.generateTransactionID();
 
@@ -327,6 +376,13 @@ public class BillingEndpoints {
 
         String email = headers.getHeaderString("email");
         String sessionId = headers.getHeaderString("sessionID");
+
+        //verify session is given
+        if (sessionId == null) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        } else if (sessionId.length() == 0) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        }
 
         //Transaction ID:
         String transactionID = TransactionIDGenerator.generateTransactionID();
@@ -368,6 +424,13 @@ public class BillingEndpoints {
         String email = headers.getHeaderString("email");
         String sessionId = headers.getHeaderString("sessionID");
 
+        //verify session is given
+        if (sessionId == null) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        } else if (sessionId.length() == 0) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        }
+
         //Transaction ID:
         String transactionID = TransactionIDGenerator.generateTransactionID();
 
@@ -407,6 +470,13 @@ public class BillingEndpoints {
 
         String email = headers.getHeaderString("email");
         String sessionId = headers.getHeaderString("sessionID");
+
+        //verify session is given
+        if (sessionId == null) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        } else if (sessionId.length() == 0) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        }
 
         //Transaction ID:
         String transactionID = TransactionIDGenerator.generateTransactionID();
@@ -448,6 +518,13 @@ public class BillingEndpoints {
         String email = headers.getHeaderString("email");
         String sessionId = headers.getHeaderString("sessionID");
 
+        //verify session is given
+        if (sessionId == null) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        } else if (sessionId.length() == 0) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        }
+
         //Transaction ID:
         String transactionID = TransactionIDGenerator.generateTransactionID();
 
@@ -487,6 +564,13 @@ public class BillingEndpoints {
 
         String email = headers.getHeaderString("email");
         String sessionId = headers.getHeaderString("sessionID");
+
+        //verify session is given
+        if (sessionId == null) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        } else if (sessionId.length() == 0) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        }
 
         //Transaction ID:
         String transactionID = TransactionIDGenerator.generateTransactionID();
@@ -528,6 +612,13 @@ public class BillingEndpoints {
         String email = headers.getHeaderString("email");
         String sessionId = headers.getHeaderString("sessionID");
 
+        //verify session is given
+        if (sessionId == null) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        } else if (sessionId.length() == 0) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        }
+
         //Transaction ID:
         String transactionID = TransactionIDGenerator.generateTransactionID();
 
@@ -568,6 +659,13 @@ public class BillingEndpoints {
 
         String email = headers.getHeaderString("email");
         String sessionId = headers.getHeaderString("sessionID");
+
+        //verify session is given
+        if (sessionId == null) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        } else if (sessionId.length() == 0) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        }
 
         //Transaction ID:
         String transactionID = TransactionIDGenerator.generateTransactionID();

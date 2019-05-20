@@ -137,6 +137,15 @@ public class IDMEndpoints {
             return ModelValidator.returnInvalidRequest(e,DefaultResponseModel.class);
         }
 
+        String email = requestModel.getEmail();
+        String sessionId = headers.getHeaderString("sessionID");
+        //verify session is given
+        if (sessionId == null) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        } else if (sessionId.length() == 0) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        }
+
         //Transaction ID:
         String transactionId = TransactionIDGenerator.generateTransactionID();
 
@@ -146,7 +155,7 @@ public class IDMEndpoints {
         cr.setRequest(requestModel);
         cr.setTransactionID(transactionId);
         cr.setMethod("post");
-        cr.setEmail(requestModel.getEmail());
+        cr.setEmail(email);
         cr.setSessionID(headers.getHeaderString("sessionID"));
 
         threadPool.add(cr);

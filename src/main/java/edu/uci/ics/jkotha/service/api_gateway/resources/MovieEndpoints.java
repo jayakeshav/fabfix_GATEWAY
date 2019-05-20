@@ -49,6 +49,14 @@ public class MovieEndpoints {
 
         String email = headers.getHeaderString("email");
         String sessionId = headers.getHeaderString("sessionID");
+
+        //verify session is given
+        if (sessionId == null) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        } else if (sessionId.length() == 0) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        }
+
         Map<String,Object> qpMap = new HashMap<>();
         if (title!=null)
             qpMap.put("title",title);
@@ -99,6 +107,13 @@ public class MovieEndpoints {
         String email = headers.getHeaderString("email");
         String sessionId = headers.getHeaderString("sessionID");
 
+        //verify session is given
+        if (sessionId == null) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        } else if (sessionId.length() == 0) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        }
+
         Map<String,Object> ppMap = new HashMap<>();
         ppMap.put("movieid",id);
 
@@ -146,6 +161,13 @@ public class MovieEndpoints {
         String sessionId = headers.getHeaderString("sessionID");
         String transactionID = TransactionIDGenerator.generateTransactionID();
 
+        //verify session is given
+        if (sessionId == null) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        } else if (sessionId.length() == 0) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        }
+
         ClientRequest cr = new ClientRequest();
         cr.setURI(movieConfigs.getMoviesUri());
         cr.setEndpoint(movieConfigs.getEPMovieAdd());
@@ -176,6 +198,13 @@ public class MovieEndpoints {
 
         String email = headers.getHeaderString("email");
         String sessionId = headers.getHeaderString("sessionID");
+
+        //verify session is given
+        if (sessionId == null) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        } else if (sessionId.length() == 0) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        }
 
         Map<String,Object> ppMap = new HashMap<>();
         ppMap.put("movieid",id);
@@ -214,6 +243,13 @@ public class MovieEndpoints {
         String email = headers.getHeaderString("email");
         String sessionId = headers.getHeaderString("sessionID");
         String transactionID = TransactionIDGenerator.generateTransactionID();
+
+        //verify session is given
+        if (sessionId == null) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        } else if (sessionId.length() == 0) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        }
 
         ClientRequest cr = new ClientRequest();
         cr.setURI(movieConfigs.getMoviesUri());
@@ -255,6 +291,13 @@ public class MovieEndpoints {
         String sessionId = headers.getHeaderString("sessionID");
         String transactionID = TransactionIDGenerator.generateTransactionID();
 
+        //verify session is given
+        if (sessionId == null) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        } else if (sessionId.length() == 0) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        }
+
         ClientRequest cr = new ClientRequest();
         cr.setURI(movieConfigs.getMoviesUri());
         cr.setEndpoint(movieConfigs.getEPGenreAdd());
@@ -290,6 +333,13 @@ public class MovieEndpoints {
         ppMap.put("movieid",id);
 
         String transactionID = TransactionIDGenerator.generateTransactionID();
+
+        //verify session is given
+        if (sessionId == null) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        } else if (sessionId.length() == 0) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        }
 
 
         ClientRequest cr = new ClientRequest();
@@ -329,6 +379,14 @@ public class MovieEndpoints {
 
         String email = headers.getHeaderString("email");
         String sessionId = headers.getHeaderString("sessionID");
+
+        //verify session is given
+        if (sessionId == null) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        } else if (sessionId.length() == 0) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        }
+
         Map<String,Object> qpMap = new HashMap<>();
         if (name!=null)
             qpMap.put("name",name);
@@ -375,6 +433,13 @@ public class MovieEndpoints {
 
         String email = headers.getHeaderString("email");
         String sessionId = headers.getHeaderString("sessionID");
+
+        //verify session is given
+        if (sessionId == null) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        } else if (sessionId.length() == 0) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        }
 
         Map<String,Object> ppMap = new HashMap<>();
         ppMap.put("id",id);
@@ -423,6 +488,13 @@ public class MovieEndpoints {
         String sessionId = headers.getHeaderString("sessionID");
         String transactionID = TransactionIDGenerator.generateTransactionID();
 
+        //verify session is given
+        if (sessionId == null) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        } else if (sessionId.length() == 0) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        }
+
         ClientRequest cr = new ClientRequest();
         cr.setURI(movieConfigs.getMoviesUri());
         cr.setEndpoint(movieConfigs.getEPStarAdd());
@@ -464,6 +536,13 @@ public class MovieEndpoints {
         String sessionId = headers.getHeaderString("sessionID");
         String transactionID = TransactionIDGenerator.generateTransactionID();
 
+        //verify session is given
+        if (sessionId == null) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        } else if (sessionId.length() == 0) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        }
+
         ClientRequest cr = new ClientRequest();
         cr.setURI(movieConfigs.getMoviesUri());
         cr.setEndpoint(movieConfigs.getEPStarIn());
@@ -504,6 +583,13 @@ public class MovieEndpoints {
         String email = headers.getHeaderString("email");
         String sessionId = headers.getHeaderString("sessionID");
         String transactionID = TransactionIDGenerator.generateTransactionID();
+
+        //verify session is given
+        if (sessionId == null) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        } else if (sessionId.length() == 0) {
+            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+        }
 
         ClientRequest cr = new ClientRequest();
         cr.setURI(movieConfigs.getMoviesUri());

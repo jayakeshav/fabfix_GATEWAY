@@ -123,6 +123,8 @@ public class ResultCodes {
                 return "User successfully updated.";
             case CANNOT_ELEVATE_USER_TO_ROOT:
                 return "Elevating user to ROOT privilege is not allowed.";
+            case -17:
+                return "SessionID not provided in request header.";
             case INTERNAL_SERVER_ERROR:
 
             default:
