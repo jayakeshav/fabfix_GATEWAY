@@ -70,7 +70,7 @@ public class BillingEndpoints {
         cr = CheckSession.verifySessionResponse(cr);
         if (cr.isSessionExpired()) {
             SessionResponseModel responseModel = new SessionResponseModel(cr.getResultCode(), ResultCodes.setMessage(cr.getResultCode()));
-            return Response.status(Status.BAD_REQUEST).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
+            return Response.status(Status.OK).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
         }
 
         threadPool.add(cr);
@@ -117,7 +117,7 @@ public class BillingEndpoints {
         cr = CheckSession.verifySessionResponse(cr);
         if (cr.isSessionExpired()) {
             SessionResponseModel responseModel = new SessionResponseModel(cr.getResultCode(), ResultCodes.setMessage(cr.getResultCode()));
-            return Response.status(Status.BAD_REQUEST).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
+            return Response.status(Status.OK).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
         }
 
         threadPool.add(cr);
@@ -164,7 +164,7 @@ public class BillingEndpoints {
         cr = CheckSession.verifySessionResponse(cr);
         if (cr.isSessionExpired()) {
             SessionResponseModel responseModel = new SessionResponseModel(cr.getResultCode(), ResultCodes.setMessage(cr.getResultCode()));
-            return Response.status(Status.BAD_REQUEST).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
+            return Response.status(Status.OK).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
         }
 
         threadPool.add(cr);
@@ -211,7 +211,7 @@ public class BillingEndpoints {
         cr = CheckSession.verifySessionResponse(cr);
         if (cr.isSessionExpired()) {
             SessionResponseModel responseModel = new SessionResponseModel(cr.getResultCode(), ResultCodes.setMessage(cr.getResultCode()));
-            return Response.status(Status.BAD_REQUEST).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
+            return Response.status(Status.OK).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
         }
 
         threadPool.add(cr);
@@ -258,7 +258,7 @@ public class BillingEndpoints {
         cr = CheckSession.verifySessionResponse(cr);
         if (cr.isSessionExpired()) {
             SessionResponseModel responseModel = new SessionResponseModel(cr.getResultCode(), ResultCodes.setMessage(cr.getResultCode()));
-            return Response.status(Status.BAD_REQUEST).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
+            return Response.status(Status.OK).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
         }
 
         threadPool.add(cr);
@@ -305,7 +305,7 @@ public class BillingEndpoints {
         cr = CheckSession.verifySessionResponse(cr);
         if (cr.isSessionExpired()) {
             SessionResponseModel responseModel = new SessionResponseModel(cr.getResultCode(), ResultCodes.setMessage(cr.getResultCode()));
-            return Response.status(Status.BAD_REQUEST).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
+            return Response.status(Status.OK).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
         }
 
         threadPool.add(cr);
@@ -352,7 +352,7 @@ public class BillingEndpoints {
         cr = CheckSession.verifySessionResponse(cr);
         if (cr.isSessionExpired()) {
             SessionResponseModel responseModel = new SessionResponseModel(cr.getResultCode(), ResultCodes.setMessage(cr.getResultCode()));
-            return Response.status(Status.BAD_REQUEST).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
+            return Response.status(Status.OK).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
         }
 
         threadPool.add(cr);
@@ -399,7 +399,7 @@ public class BillingEndpoints {
         cr = CheckSession.verifySessionResponse(cr);
         if (cr.isSessionExpired()) {
             SessionResponseModel responseModel = new SessionResponseModel(cr.getResultCode(), ResultCodes.setMessage(cr.getResultCode()));
-            return Response.status(Status.BAD_REQUEST).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
+            return Response.status(Status.OK).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
         }
 
         threadPool.add(cr);
@@ -446,7 +446,7 @@ public class BillingEndpoints {
         cr = CheckSession.verifySessionResponse(cr);
         if (cr.isSessionExpired()) {
             SessionResponseModel responseModel = new SessionResponseModel(cr.getResultCode(), ResultCodes.setMessage(cr.getResultCode()));
-            return Response.status(Status.BAD_REQUEST).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
+            return Response.status(Status.OK).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
         }
 
         threadPool.add(cr);
@@ -493,7 +493,7 @@ public class BillingEndpoints {
         cr = CheckSession.verifySessionResponse(cr);
         if (cr.isSessionExpired()) {
             SessionResponseModel responseModel = new SessionResponseModel(cr.getResultCode(), ResultCodes.setMessage(cr.getResultCode()));
-            return Response.status(Status.BAD_REQUEST).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
+            return Response.status(Status.OK).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
         }
 
         threadPool.add(cr);
@@ -540,7 +540,7 @@ public class BillingEndpoints {
         cr = CheckSession.verifySessionResponse(cr);
         if (cr.isSessionExpired()) {
             SessionResponseModel responseModel = new SessionResponseModel(cr.getResultCode(), ResultCodes.setMessage(cr.getResultCode()));
-            return Response.status(Status.BAD_REQUEST).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
+            return Response.status(Status.OK).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
         }
 
         threadPool.add(cr);
@@ -587,7 +587,7 @@ public class BillingEndpoints {
         cr = CheckSession.verifySessionResponse(cr);
         if (cr.isSessionExpired()) {
             SessionResponseModel responseModel = new SessionResponseModel(cr.getResultCode(), ResultCodes.setMessage(cr.getResultCode()));
-            return Response.status(Status.BAD_REQUEST).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
+            return Response.status(Status.OK).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
         }
 
         threadPool.add(cr);
@@ -634,7 +634,7 @@ public class BillingEndpoints {
         cr = CheckSession.verifySessionResponse(cr);
         if (cr.isSessionExpired()) {
             SessionResponseModel responseModel = new SessionResponseModel(cr.getResultCode(), ResultCodes.setMessage(cr.getResultCode()));
-            return Response.status(Status.BAD_REQUEST).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
+            return Response.status(Status.OK).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
         }
 
         threadPool.add(cr);
@@ -682,7 +682,7 @@ public class BillingEndpoints {
         cr = CheckSession.verifySessionResponse(cr);
         if (cr.isSessionExpired()) {
             SessionResponseModel responseModel = new SessionResponseModel(cr.getResultCode(), ResultCodes.setMessage(cr.getResultCode()));
-            return Response.status(Status.BAD_REQUEST).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
+            return Response.status(Status.OK).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
         }
 
         threadPool.add(cr);

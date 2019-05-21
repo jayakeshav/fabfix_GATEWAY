@@ -17,7 +17,6 @@ public class DefaultResponseModel extends ResponseModel {
         this.message = message;
     }
 
-    @JsonCreator
     public DefaultResponseModel(@JsonProperty(value = "resultCode", required = true) int resultCode) {
         this.resultCode = resultCode;
         this.message = ResultCodes.setMessage(resultCode);

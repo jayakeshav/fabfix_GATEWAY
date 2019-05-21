@@ -15,16 +15,18 @@ public class SessionResponseModel extends ResponseModel {
 
     @JsonCreator
     public SessionResponseModel(
-            int resultCode,
-            String message,
-            String sessionID) {
+            @JsonProperty(value = "resultCode", required = true) int resultCode,
+            @JsonProperty(value = "message", required = true) String message,
+            @JsonProperty(value = "sessionID", required = true) String sessionID) {
         this.resultCode = resultCode;
         this.message = message;
         this.sessionID = sessionID;
     }
 
-    @JsonCreator
-    public SessionResponseModel(int resultCode, String message) {
+
+    public SessionResponseModel(
+            @JsonProperty(value = "resultCode", required = true) int resultCode,
+            @JsonProperty(value = "message", required = true) String message) {
         this.resultCode = resultCode;
         this.message = message;
         this.sessionID = null;

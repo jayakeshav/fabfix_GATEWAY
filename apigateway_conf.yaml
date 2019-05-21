@@ -64,7 +64,7 @@ billingEndpoints:
   EPCartDelete: /cart/delete
   EPCartRetrieve: /cart/retrieve
   EPCartClear: /cart/clear
-  EPCcInsert: /creditcard/inser
+  EPCcInsert: /creditcard/insert
   EPCcUpdate: /credicard/update
   EPCcDelete: /creditcard/delete
   EPCcRetrieve: /creditcard/retrieve

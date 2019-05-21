@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.uci.ics.jkotha.service.api_gateway.GatewayService;
 import edu.uci.ics.jkotha.service.api_gateway.configs.IDMConfigs;
 import edu.uci.ics.jkotha.service.api_gateway.logger.ServiceLogger;
+import edu.uci.ics.jkotha.service.api_gateway.models.DefaultResponseModel;
 import edu.uci.ics.jkotha.service.api_gateway.models.IdmModels.SessionResponseModel;
 import edu.uci.ics.jkotha.service.api_gateway.models.IdmModels.SessionsRequestModel;
 import edu.uci.ics.jkotha.service.api_gateway.threadpool.ClientRequest;
@@ -45,8 +46,13 @@ public class CheckSession {
         try {
             return mapper.readValue(jsonText, SessionResponseModel.class);
         }catch (IOException e){
-            ServiceLogger.LOGGER.warning(ExceptionUtils.exceptionStackTraceAsString(e));
-            return null;
+            try {
+                DefaultResponseModel res = mapper.readValue(jsonText, DefaultResponseModel.class);
+                return new SessionResponseModel(res.getResultCode(), res.getMessage());
+            } catch (IOException e1) {
+                ServiceLogger.LOGGER.warning(ExceptionUtils.exceptionStackTraceAsString(e1));
+                return null;
+            }
         }
     }
 
@@ -54,7 +60,7 @@ public class CheckSession {
         SessionResponseModel model = verifySessionResponseInternal(clientRequest);
 
         if (model == null)
-            return null;
+            return clientRequest;
 
         if (model.getResultCode() == 130) {
             clientRequest.setSessionExpired(false);

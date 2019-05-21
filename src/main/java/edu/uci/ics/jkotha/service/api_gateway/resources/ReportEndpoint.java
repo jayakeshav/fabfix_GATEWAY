@@ -12,6 +12,7 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -31,17 +32,19 @@ public class ReportEndpoint {
 
         String get = "select sessionid,response,httpstatus from responses where transactionid=?";
         try {
-            PreparedStatement ps = GatewayService.getConPool().requestCon().prepareStatement(get);
+            Connection con = GatewayService.getConPool().requestCon();
+            PreparedStatement ps = con.prepareStatement(get);
             ps.setString(1,transactionId);
             ResultSet rs= ps.executeQuery();
             if (rs.next()){
                 String jsonText = rs.getString("response");
                 int httpStatus = rs.getInt("httpstatus");
                 sessionId = rs.getString("sessionid");
-
+                GatewayService.getConPool().releaseCon(con);
                 return Response.status(httpStatus).entity(jsonText).header("email",email).header("sessionId",sessionId).build();
             }
             else {
+                GatewayService.getConPool().releaseCon(con);
                 return Response.status(Response.Status.NO_CONTENT).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).header("delay", delay).build();
             }
         }catch (SQLException e){

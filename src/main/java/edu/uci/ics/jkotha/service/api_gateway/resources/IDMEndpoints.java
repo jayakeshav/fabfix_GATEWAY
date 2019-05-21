@@ -9,7 +9,6 @@ import edu.uci.ics.jkotha.service.api_gateway.models.IdmModels.LoginRequestModel
 import edu.uci.ics.jkotha.service.api_gateway.models.IdmModels.PrivilegeRequestModel;
 import edu.uci.ics.jkotha.service.api_gateway.models.IdmModels.RegisterRequestModel;
 import edu.uci.ics.jkotha.service.api_gateway.models.IdmModels.SessionsRequestModel;
-import edu.uci.ics.jkotha.service.api_gateway.models.NoContentResponseModel;
 import edu.uci.ics.jkotha.service.api_gateway.threadpool.ClientRequest;
 import edu.uci.ics.jkotha.service.api_gateway.threadpool.ThreadPool;
 import edu.uci.ics.jkotha.service.api_gateway.utilities.ModelValidator;

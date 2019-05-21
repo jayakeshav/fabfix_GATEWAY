@@ -3,8 +3,6 @@ package edu.uci.ics.jkotha.service.api_gateway.threadpool;
 import edu.uci.ics.jkotha.service.api_gateway.GatewayService;
 import edu.uci.ics.jkotha.service.api_gateway.logger.ServiceLogger;
 import edu.uci.ics.jkotha.service.api_gateway.models.RequestModel;
-import edu.uci.ics.jkotha.service.api_gateway.utilities.CheckSession;
-import edu.uci.ics.jkotha.service.api_gateway.utilities.Wrapper;
 import org.glassfish.jersey.internal.util.ExceptionUtils;
 import org.glassfish.jersey.jackson.JacksonFeature;
 
@@ -32,19 +30,6 @@ public class Worker extends Thread {
     }
 
     public void process(ClientRequest request) {
-
-
-//        Wrapper test = CheckSession.verifySessionResponse(request);
-//        if (test != null){
-//            if (test.getModel().getResultCode()==133){
-//                request.setSessionID(test.getModel().getSessionID());
-//            }
-//            else if (test.getModel().getResultCode()==132 || test.getModel().getResultCode()==131){
-//                insertIntoDatabase(test.getResponse(),request);
-//                return;
-//            }
-//        }
-
         if (request.getMethod().equalsIgnoreCase("post")) {
 
        Client client = ClientBuilder.newClient();
