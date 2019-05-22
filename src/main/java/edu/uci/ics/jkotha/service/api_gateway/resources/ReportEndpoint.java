@@ -2,7 +2,7 @@ package edu.uci.ics.jkotha.service.api_gateway.resources;
 
 import edu.uci.ics.jkotha.service.api_gateway.GatewayService;
 import edu.uci.ics.jkotha.service.api_gateway.logger.ServiceLogger;
-import edu.uci.ics.jkotha.service.api_gateway.models.NoRequestResponseModel;
+import org.glassfish.jersey.internal.util.ExceptionUtils;
 
 
 import javax.ws.rs.GET;
@@ -40,6 +40,8 @@ public class ReportEndpoint {
                 String jsonText = rs.getString("response");
                 int httpStatus = rs.getInt("httpstatus");
                 sessionId = rs.getString("sessionid");
+                ServiceLogger.LOGGER.info("Got all the details required from database... deleting the database entry for current transaction ID.");
+                clearTransaction(transactionId, con);
                 GatewayService.getConPool().releaseCon(con);
                 return Response.status(httpStatus).entity(jsonText).header("email",email).header("sessionId",sessionId).build();
             }
@@ -49,6 +51,18 @@ public class ReportEndpoint {
             }
         }catch (SQLException e){
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    private static void clearTransaction(String transactionId, Connection con) {
+        String deleteString = "delete from responses where transactionid=?";
+        try {
+            PreparedStatement deleteStatement = con.prepareStatement(deleteString);
+            deleteStatement.setString(1, transactionId);
+            deleteStatement.execute();
+            ServiceLogger.LOGGER.info("Response deleted from database for TransactionID:" + transactionId);
+        } catch (SQLException e) {
+            ServiceLogger.LOGGER.warning(ExceptionUtils.exceptionStackTraceAsString(e));
         }
     }
 }
