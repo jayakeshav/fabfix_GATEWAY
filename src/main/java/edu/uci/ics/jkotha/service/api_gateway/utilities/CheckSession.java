@@ -43,33 +43,41 @@ public class CheckSession {
 
         String jsonText = response.readEntity(String.class);
         ObjectMapper mapper = new ObjectMapper();
-        try {
-            return mapper.readValue(jsonText, SessionResponseModel.class);
-        }catch (IOException e){
+        if (response.getStatus() != -1) {
             try {
-                DefaultResponseModel res = mapper.readValue(jsonText, DefaultResponseModel.class);
-                return new SessionResponseModel(res.getResultCode(), res.getMessage());
-            } catch (IOException e1) {
-                ServiceLogger.LOGGER.warning(ExceptionUtils.exceptionStackTraceAsString(e1));
-                return null;
+                return mapper.readValue(jsonText, SessionResponseModel.class);
+            }catch (IOException e){
+                try {
+                    DefaultResponseModel res = mapper.readValue(jsonText, DefaultResponseModel.class);
+                    return new SessionResponseModel(res.getResultCode(), res.getMessage());
+                } catch (IOException e1) {
+                    ServiceLogger.LOGGER.warning(ExceptionUtils.exceptionStackTraceAsString(e1));
+                    return null;
+                }
             }
-        }
+        } else
+            return null;
     }
 
     public static ClientRequest verifySessionResponse(ClientRequest clientRequest) {
         SessionResponseModel model = verifySessionResponseInternal(clientRequest);
 
-        if (model == null)
+        if (model == null) {
+            ServiceLogger.LOGGER.info("screwed!!!!");
+            clientRequest.setSessionExpired(true);
             return clientRequest;
-
+        }
         if (model.getResultCode() == 130) {
+            ServiceLogger.LOGGER.info("session is Active");
             clientRequest.setSessionExpired(false);
             return clientRequest;
         } else if (model.getResultCode() == 133) {
+            ServiceLogger.LOGGER.info("session Revoked");
             clientRequest.setSessionExpired(false);
             clientRequest.setSessionID(model.getSessionID());
             return clientRequest;
         } else {
+            ServiceLogger.LOGGER.info("session not active /screwed: result code:" + clientRequest.getResultCode());
             clientRequest.setSessionExpired(true);
             clientRequest.setResultCode(model.getResultCode());
             return clientRequest;
