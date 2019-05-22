@@ -61,13 +61,15 @@ public class CheckSession {
 
     public static ClientRequest verifySessionResponse(ClientRequest clientRequest) {
         SessionResponseModel model = verifySessionResponseInternal(clientRequest);
-
+        ServiceLogger.LOGGER.info("Session Id:" + clientRequest.getSessionID());
+        ServiceLogger.LOGGER.info("Session Id received:" + model.getSessionID());
         if (model == null) {
             ServiceLogger.LOGGER.info("screwed!!!!");
             clientRequest.setSessionExpired(true);
             return clientRequest;
         }
         if (model.getResultCode() == 130) {
+            clientRequest.setSessionID(model.getSessionID());
             ServiceLogger.LOGGER.info("session is Active");
             clientRequest.setSessionExpired(false);
             return clientRequest;
@@ -77,7 +79,7 @@ public class CheckSession {
             clientRequest.setSessionID(model.getSessionID());
             return clientRequest;
         } else {
-            ServiceLogger.LOGGER.info("session not active /screwed: result code:" + clientRequest.getResultCode());
+            ServiceLogger.LOGGER.info("session not active /screwed: result code:" + model.getResultCode());
             clientRequest.setSessionExpired(true);
             clientRequest.setResultCode(model.getResultCode());
             return clientRequest;
