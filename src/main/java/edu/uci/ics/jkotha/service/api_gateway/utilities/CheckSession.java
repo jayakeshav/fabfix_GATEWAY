@@ -75,8 +75,8 @@ public class CheckSession {
             return clientRequest;
         } else if (model.getResultCode() == 133) {
             ServiceLogger.LOGGER.info("session Revoked");
-            clientRequest.setSessionExpired(false);
-            clientRequest.setSessionID(model.getSessionID());
+            clientRequest.setSessionExpired(true);
+            clientRequest.setResultCode(model.getResultCode());
             return clientRequest;
         } else {
             ServiceLogger.LOGGER.info("session not active /screwed: result code:" + model.getResultCode());

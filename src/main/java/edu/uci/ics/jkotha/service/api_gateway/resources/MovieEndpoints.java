@@ -93,7 +93,9 @@ public class MovieEndpoints {
         
         threadPool.add(cr);
 
-        return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
+        sessionId = cr.getSessionID();
+
+        return Response.status(Status.NO_CONTENT).header("email", email).header("Access-Control-Allow-Headers", "*").header("Access-Control-Expose-Headers", "*").header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 
     @Path("get/{movieid}")
@@ -136,7 +138,9 @@ public class MovieEndpoints {
         }
         threadPool.add(cr);
 
-        return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
+        sessionId = cr.getSessionID();
+
+        return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("Access-Control-Allow-Headers", "*").header("Access-Control-Expose-Headers", "*").header("transactionID", transactionID).header("delay", delay).build();
     }
 
     @Path("add")
@@ -185,6 +189,8 @@ public class MovieEndpoints {
 
         threadPool.add(cr);
 
+        sessionId = cr.getSessionID();
+
         return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 
@@ -229,6 +235,8 @@ public class MovieEndpoints {
 
         threadPool.add(cr);
 
+        sessionId = cr.getSessionID();
+
         return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 
@@ -266,6 +274,8 @@ public class MovieEndpoints {
         }
 
         threadPool.add(cr);
+
+        sessionId = cr.getSessionID();
 
         return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
@@ -315,6 +325,8 @@ public class MovieEndpoints {
 
         threadPool.add(cr);
 
+        sessionId = cr.getSessionID();
+
         return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 
@@ -358,6 +370,8 @@ public class MovieEndpoints {
         }
 
         threadPool.add(cr);
+
+        sessionId = cr.getSessionID();
 
         return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
@@ -419,6 +433,8 @@ public class MovieEndpoints {
 
         threadPool.add(cr);
 
+        sessionId = cr.getSessionID();
+
         return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 
@@ -463,6 +479,8 @@ public class MovieEndpoints {
         }
 
         threadPool.add(cr);
+
+        sessionId = cr.getSessionID();
 
         return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
@@ -512,6 +530,8 @@ public class MovieEndpoints {
 
         threadPool.add(cr);
 
+        sessionId = cr.getSessionID();
+
         return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 
@@ -560,6 +580,8 @@ public class MovieEndpoints {
 
         threadPool.add(cr);
 
+        sessionId = cr.getSessionID();
+
         return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 
@@ -607,6 +629,8 @@ public class MovieEndpoints {
         }
 
         threadPool.add(cr);
+
+        sessionId = cr.getSessionID();
 
         return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }

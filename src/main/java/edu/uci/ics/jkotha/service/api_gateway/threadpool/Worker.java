@@ -30,150 +30,148 @@ public class Worker extends Thread {
     }
 
     public void process(ClientRequest request) {
-        if (request.getMethod().equalsIgnoreCase("post")) {
+        try {
+            if (request.getMethod().equalsIgnoreCase("post")) {
 
-       Client client = ClientBuilder.newClient();
-       client.register(JacksonFeature.class);
-
-        WebTarget webTarget = client.target(request.getURI()).path(request.getEndpoint());
-
-        Invocation.Builder builder = webTarget.request(MediaType.APPLICATION_JSON);
-
-        RequestModel rm =  request.getRequest();
-
-        builder.header("email",request.getEmail());
-        builder.header("sessionID",request.getSessionID());
-        builder.header("transactionID",request.getTransactionID());
-
-        Response response ;
-
-        response=builder.post(Entity.entity(rm,MediaType.APPLICATION_JSON));
-
-        ServiceLogger.LOGGER.info("data received from server,putting it into DB by worker:"+id);
-
-        insertIntoDatabase( response,request);
-
-        ServiceLogger.LOGGER.info("request processed and connection returned");
-
-        return;
-        }
-
-        else if (request.getMethod().equalsIgnoreCase("get")){
-
-            if (request.getPathParam()==null & request.getQueryParamValues()!=null)//has query params
-            {
                 Client client = ClientBuilder.newClient();
                 client.register(JacksonFeature.class);
 
                 WebTarget webTarget = client.target(request.getURI()).path(request.getEndpoint());
 
-                Iterator iterator = request.getQueryParamValues().entrySet().iterator();
-                while (iterator.hasNext()){
-                    Map.Entry pair = (Map.Entry) iterator.next();
-                    webTarget=webTarget.queryParam((String) pair.getKey(),pair.getValue());
+                Invocation.Builder builder = webTarget.request(MediaType.APPLICATION_JSON);
+
+                RequestModel rm = request.getRequest();
+
+                builder.header("email", request.getEmail());
+                builder.header("sessionID", request.getSessionID());
+                builder.header("transactionID", request.getTransactionID());
+
+                Response response;
+
+                response = builder.post(Entity.entity(rm, MediaType.APPLICATION_JSON));
+
+                ServiceLogger.LOGGER.info("data received from server,putting it into DB by worker:" + id);
+
+                insertIntoDatabase(response, request);
+
+                ServiceLogger.LOGGER.info("request processed and connection returned");
+
+                return;
+            } else if (request.getMethod().equalsIgnoreCase("get")) {
+
+                if (request.getPathParam() == null & request.getQueryParamValues() != null)//has query params
+                {
+                    Client client = ClientBuilder.newClient();
+                    client.register(JacksonFeature.class);
+
+                    WebTarget webTarget = client.target(request.getURI()).path(request.getEndpoint());
+
+                    Iterator iterator = request.getQueryParamValues().entrySet().iterator();
+                    while (iterator.hasNext()) {
+                        Map.Entry pair = (Map.Entry) iterator.next();
+                        webTarget = webTarget.queryParam((String) pair.getKey(), pair.getValue());
+                    }
+
+                    ServiceLogger.LOGGER.info("Final Uri: " + webTarget.getUri().toString());
+
+                    Invocation.Builder builder = webTarget.request(MediaType.APPLICATION_JSON);
+
+                    builder.header("email", request.getEmail());
+                    builder.header("sessionID", request.getSessionID());
+                    builder.header("transactionID", request.getTransactionID());
+
+                    builder.accept(MediaType.APPLICATION_JSON);
+
+                    Response response = builder.get();
+
+                    ServiceLogger.LOGGER.info("data received from server,putting it into DB by worker:" + id);
+
+                    //database insert
+                    insertIntoDatabase(response, request);
+
+                } else if (request.getPathParam() != null)//has path param
+                {
+                    Client client = ClientBuilder.newClient();
+                    client.register(JacksonFeature.class);
+
+                    WebTarget webTarget = client.target(request.getURI()).path(request.getEndpoint());
+
+                    webTarget = webTarget.resolveTemplates(request.getPathParam());
+
+                    ServiceLogger.LOGGER.info("Final Uri: " + webTarget.getUri().toString());
+
+                    Invocation.Builder builder = webTarget.request(MediaType.APPLICATION_JSON);
+
+                    builder.header("email", request.getEmail());
+                    builder.header("sessionID", request.getSessionID());
+                    builder.header("transactionID", request.getTransactionID());
+
+                    builder.accept(MediaType.APPLICATION_JSON);
+
+                    Response response = builder.get();
+
+                    ServiceLogger.LOGGER.info("data received from server,putting it into DB by worker:" + id);
+
+                    //database insert
+                    insertIntoDatabase(response, request);
+                } else {
+                    Client client = ClientBuilder.newClient();
+                    client.register(JacksonFeature.class);
+
+                    WebTarget webTarget = client.target(request.getURI()).path(request.getEndpoint());
+
+                    ServiceLogger.LOGGER.info("Final Uri: " + webTarget.toString());
+
+                    Invocation.Builder builder = webTarget.request(MediaType.APPLICATION_JSON);
+
+                    builder.header("email", request.getEmail());
+                    builder.header("sessionID", request.getSessionID());
+                    builder.header("transactionID", request.getTransactionID());
+
+                    builder.accept(MediaType.APPLICATION_JSON);
+
+                    Response response = builder.get();
+
+                    ServiceLogger.LOGGER.info("data received from server,putting it into DB by worker:" + id);
+
+                    //database insert
+                    insertIntoDatabase(response, request);
                 }
 
-                ServiceLogger.LOGGER.info("Final Uri: "+webTarget.getUri().toString());
-
-                Invocation.Builder builder = webTarget.request(MediaType.APPLICATION_JSON);
-
-                builder.header("email",request.getEmail());
-                builder.header("sessionID",request.getSessionID());
-                builder.header("transactionID",request.getTransactionID());
-
-                builder.accept(MediaType.APPLICATION_JSON);
-
-                Response response = builder.get();
-
-                ServiceLogger.LOGGER.info("data received from server,putting it into DB by worker:"+id);
-
-                //database insert
-                insertIntoDatabase( response,request);
-
-            }
-
-            else if (request.getPathParam()!= null)//has path param
-            {
+                return;
+            } else if (request.getMethod().equalsIgnoreCase("delete")) {
                 Client client = ClientBuilder.newClient();
                 client.register(JacksonFeature.class);
 
                 WebTarget webTarget = client.target(request.getURI()).path(request.getEndpoint());
 
-                 webTarget=webTarget.resolveTemplates(request.getPathParam());
+                webTarget = webTarget.resolveTemplates(request.getPathParam());
 
-                ServiceLogger.LOGGER.info("Final Uri: "+webTarget.getUri().toString());
-
-                Invocation.Builder builder = webTarget.request(MediaType.APPLICATION_JSON);
-
-                builder.header("email",request.getEmail());
-                builder.header("sessionID",request.getSessionID());
-                builder.header("transactionID",request.getTransactionID());
-
-                builder.accept(MediaType.APPLICATION_JSON);
-
-                Response response = builder.get();
-
-                ServiceLogger.LOGGER.info("data received from server,putting it into DB by worker:"+id);
-
-                //database insert
-                insertIntoDatabase( response,request);
-            }
-
-            else {
-                Client client = ClientBuilder.newClient();
-                client.register(JacksonFeature.class);
-
-                WebTarget webTarget = client.target(request.getURI()).path(request.getEndpoint());
-
-                ServiceLogger.LOGGER.info("Final Uri: "+webTarget.toString());
+                ServiceLogger.LOGGER.info("Final Uri: " + webTarget.toString());
 
                 Invocation.Builder builder = webTarget.request(MediaType.APPLICATION_JSON);
 
-                builder.header("email",request.getEmail());
-                builder.header("sessionID",request.getSessionID());
-                builder.header("transactionID",request.getTransactionID());
+                builder.header("email", request.getEmail());
+                builder.header("sessionID", request.getSessionID());
+                builder.header("transactionID", request.getTransactionID());
 
                 builder.accept(MediaType.APPLICATION_JSON);
 
-                Response response = builder.get();
+                Response response = builder.delete();
 
-                ServiceLogger.LOGGER.info("data received from server,putting it into DB by worker:"+id);
+                ServiceLogger.LOGGER.info("data received from server,putting it into DB by worker:" + id);
 
                 //database insert
-                insertIntoDatabase( response,request);
+                insertIntoDatabase(response, request);
+
+                return;
             }
-
-            return;
+        } catch (Exception e) {
+            ServiceLogger.LOGGER.severe("thread fell into exception");
+            ServiceLogger.LOGGER.severe(ExceptionUtils.exceptionStackTraceAsString(e));
+            Response response = Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
+            insertIntoDatabase(response, request);
         }
-
-        else if (request.getMethod().equalsIgnoreCase("delete")){
-            Client client = ClientBuilder.newClient();
-            client.register(JacksonFeature.class);
-
-            WebTarget webTarget = client.target(request.getURI()).path(request.getEndpoint());
-
-            webTarget=webTarget.resolveTemplates(request.getPathParam());
-
-            ServiceLogger.LOGGER.info("Final Uri: "+webTarget.toString());
-
-            Invocation.Builder builder = webTarget.request(MediaType.APPLICATION_JSON);
-
-            builder.header("email",request.getEmail());
-            builder.header("sessionID",request.getSessionID());
-            builder.header("transactionID",request.getTransactionID());
-
-            builder.accept(MediaType.APPLICATION_JSON);
-
-            Response response = builder.delete();
-
-            ServiceLogger.LOGGER.info("data received from server,putting it into DB by worker:"+id);
-
-            //database insert
-            insertIntoDatabase( response,request);
-
-            return;
-        }
-
         ServiceLogger.LOGGER.severe("thread reached end something wrong happened");
     }
 

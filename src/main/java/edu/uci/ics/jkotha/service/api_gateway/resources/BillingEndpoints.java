@@ -75,7 +75,9 @@ public class BillingEndpoints {
 
         threadPool.add(cr);
 
-        return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
+        sessionId = cr.getSessionID();
+
+        return Response.status(Status.NO_CONTENT).header("email", email).header("Access-Control-Allow-Headers", "*").header("Access-Control-Expose-Headers", "*").header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 
     @Path("cart/update")
@@ -122,7 +124,9 @@ public class BillingEndpoints {
 
         threadPool.add(cr);
 
-        return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
+        sessionId = cr.getSessionID();
+
+        return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("Access-Control-Allow-Headers", "*").header("Access-Control-Expose-Headers", "*").header("transactionID", transactionID).header("delay", delay).build();
     }
 
     @Path("cart/delete")
@@ -168,6 +172,8 @@ public class BillingEndpoints {
         }
 
         threadPool.add(cr);
+
+        sessionId = cr.getSessionID();
 
         return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
@@ -216,7 +222,9 @@ public class BillingEndpoints {
 
         threadPool.add(cr);
 
-        return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
+        sessionId = cr.getSessionID();
+
+        return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("Access-Control-Allow-Headers", "*").header("Access-Control-Expose-Headers", "*").header("transactionID", transactionID).header("delay", delay).build();
     }
 
     @Path("cart/clear")
@@ -262,6 +270,8 @@ public class BillingEndpoints {
         }
 
         threadPool.add(cr);
+
+        sessionId = cr.getSessionID();
 
         return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
@@ -310,7 +320,9 @@ public class BillingEndpoints {
 
         threadPool.add(cr);
 
-        return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
+        sessionId = cr.getSessionID();
+
+        return Response.status(Status.NO_CONTENT).header("email", email).header("Access-Control-Allow-Headers", "*").header("Access-Control-Expose-Headers", "*").header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 
     @Path("creditcard/update")
@@ -356,6 +368,8 @@ public class BillingEndpoints {
         }
 
         threadPool.add(cr);
+
+        sessionId = cr.getSessionID();
 
         return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
@@ -404,6 +418,8 @@ public class BillingEndpoints {
 
         threadPool.add(cr);
 
+        sessionId = cr.getSessionID();
+
         return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 
@@ -450,6 +466,8 @@ public class BillingEndpoints {
         }
 
         threadPool.add(cr);
+
+        sessionId = cr.getSessionID();
 
         return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
@@ -498,7 +516,9 @@ public class BillingEndpoints {
 
         threadPool.add(cr);
 
-        return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
+        sessionId = cr.getSessionID();
+
+        return Response.status(Status.NO_CONTENT).header("email", email).header("Access-Control-Allow-Headers", "*").header("Access-Control-Expose-Headers", "*").header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 
     @Path("customer/update")
@@ -544,6 +564,8 @@ public class BillingEndpoints {
         }
 
         threadPool.add(cr);
+
+        sessionId = cr.getSessionID();
 
         return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
@@ -592,6 +614,8 @@ public class BillingEndpoints {
 
         threadPool.add(cr);
 
+        sessionId = cr.getSessionID();
+
         return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 
@@ -639,6 +663,7 @@ public class BillingEndpoints {
 
         threadPool.add(cr);
 
+        sessionId = cr.getSessionID();
 
         return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
@@ -687,6 +712,7 @@ public class BillingEndpoints {
 
         threadPool.add(cr);
 
+        sessionId = cr.getSessionID();
 
         return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }

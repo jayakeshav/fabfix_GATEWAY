@@ -43,11 +43,11 @@ public class ReportEndpoint {
                 ServiceLogger.LOGGER.info("Got all the details required from database... deleting the database entry for current transaction ID.");
                 clearTransaction(transactionId, con);
                 GatewayService.getConPool().releaseCon(con);
-                return Response.status(httpStatus).entity(jsonText).header("email",email).header("sessionId",sessionId).build();
+                return Response.status(httpStatus).entity(jsonText).header("email", email).header("sessionId", sessionId).header("Access-Control-Allow-Headers", "*").header("Access-Control-Expose-Headers", "*").build();
             }
             else {
                 GatewayService.getConPool().releaseCon(con);
-                return Response.status(Response.Status.NO_CONTENT).header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).header("delay", delay).build();
+                return Response.status(Response.Status.NO_CONTENT).header("Access-Control-Allow-Headers", "*").header("Access-Control-Expose-Headers", "*").header("email", email).header("sessionId", sessionId).header("transactionID", transactionId).header("delay", delay).build();
             }
         }catch (SQLException e){
             return Response.status(Response.Status.INTERNAL_SERVER_ERROR).build();
