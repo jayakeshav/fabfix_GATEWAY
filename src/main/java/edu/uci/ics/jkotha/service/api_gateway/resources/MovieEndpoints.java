@@ -69,10 +69,10 @@ public class MovieEndpoints {
         if (hidden)
             qpMap.put("hidden",hidden);
 
-        if (limit != 25 && limit != 10 && limit != 100 && limit != 50)
-            limit = 10;
-        if (offset < 0 || offset % limit != 0)
-            offset = 0;
+//        if (limit != 25 && limit != 10 && limit != 100 && limit != 50)
+//            limit = 10;
+//        if (offset < 0 || offset % limit != 0)
+//            offset = 0;
 
         qpMap.put("offset",offset);
         qpMap.put("limit",limit);
@@ -423,6 +423,10 @@ public class MovieEndpoints {
             qpMap.put("movieTitle",movieTitle);
         if (year !=0)
             qpMap.put("birthYear",year);
+//        if (limit != 25 && limit != 10 && limit != 100 && limit != 50)
+//            limit = 10;
+//        if (offset < 0 || offset % limit != 0)
+//            offset = 0;
 
         qpMap.put("offset",offset);
         qpMap.put("limit",limit);
