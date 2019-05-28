@@ -388,7 +388,7 @@ public class MovieEndpoints {
 
         sessionId = cr.getSessionID();
 
-        return Response.status(Status.NO_CONTENT).header("Access-Control-Allow-Headers", "*").header("Access-Control-Expose-Headers", "*").header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
+        return Response.status(Status.NO_CONTENT).header("X-Content-Type-Options", "nosniff").header("Access-Control-Allow-Headers", "*").header("Access-Control-Expose-Headers", "*").header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 
     @Path("star/search")
