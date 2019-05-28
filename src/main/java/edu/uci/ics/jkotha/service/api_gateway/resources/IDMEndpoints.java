@@ -58,7 +58,7 @@ public class IDMEndpoints {
         threadPool.add(cr);
 
 
-        return Response.status(Status.NO_CONTENT).header("transactionID", transactionId).header("Access-Control-Allow-Headers", "*").header("Access-Control-Expose-Headers", "*").header("delay", delay).build();
+        return Response.status(Status.NO_CONTENT).header("transactionID", transactionId).header("X-Content-Type-Options", "nosniff").header("Access-Control-Allow-Headers", "*").header("Access-Control-Expose-Headers", "*").header("delay", delay).build();
     }
 
     @Path("login")
@@ -88,7 +88,7 @@ public class IDMEndpoints {
 
         threadPool.add(cr);
 
-        return Response.status(Status.NO_CONTENT).header("transactionID", transactionId).header("Access-Control-Allow-Headers", "*").header("Access-Control-Expose-Headers", "*").header("delay", delay).build();
+        return Response.status(Status.NO_CONTENT).header("transactionID", transactionId).header("X-Content-Type-Options", "nosniff").header("Access-Control-Allow-Headers", "*").header("Access-Control-Expose-Headers", "*").header("delay", delay).build();
     }
 
     @Path("session")
