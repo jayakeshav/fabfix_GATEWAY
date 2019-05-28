@@ -69,6 +69,11 @@ public class MovieEndpoints {
         if (hidden)
             qpMap.put("hidden",hidden);
 
+        if (limit != 25 && limit != 10 && limit != 100 && limit != 50)
+            limit = 10;
+        if (offset < 0 || offset % limit != 0)
+            offset = 0;
+
         qpMap.put("offset",offset);
         qpMap.put("limit",limit);
         qpMap.put("orderby",sortby);
@@ -85,6 +90,8 @@ public class MovieEndpoints {
         cr.setMethod("get");
         cr.setQueryParamValues(qpMap);
 
+        ServiceLogger.LOGGER.info(email);
+
         cr = CheckSession.verifySessionResponse(cr);
         if (cr.isSessionExpired()) {
             SessionResponseModel responseModel = new SessionResponseModel(cr.getResultCode(), ResultCodes.setMessage(cr.getResultCode()));
@@ -95,7 +102,7 @@ public class MovieEndpoints {
 
         sessionId = cr.getSessionID();
 
-        return Response.status(Status.NO_CONTENT).header("email", email).header("Access-Control-Allow-Headers", "*").header("Access-Control-Expose-Headers", "*").header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
+        return Response.status(Status.NO_CONTENT).header("email", email).header("Access-Control-Allow-Origin", "*").header("Access-Control-Allow-Headers", "*").header("Access-Control-Expose-Headers", "*").header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 
     @Path("get/{movieid}")
@@ -130,6 +137,8 @@ public class MovieEndpoints {
         cr.setTransactionID(transactionID);
         cr.setMethod("get");
         cr.setPathParam(ppMap);
+
+        ServiceLogger.LOGGER.info(email);
 
         cr = CheckSession.verifySessionResponse(cr);
         if (cr.isSessionExpired()) {
@@ -181,6 +190,8 @@ public class MovieEndpoints {
         cr.setRequest(requestModel);
         cr.setMethod("post");
 
+        ServiceLogger.LOGGER.info(email);
+
         cr = CheckSession.verifySessionResponse(cr);
         if (cr.isSessionExpired()) {
             SessionResponseModel responseModel = new SessionResponseModel(cr.getResultCode(), ResultCodes.setMessage(cr.getResultCode()));
@@ -191,7 +202,7 @@ public class MovieEndpoints {
 
         sessionId = cr.getSessionID();
 
-        return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
+        return Response.status(Status.NO_CONTENT).header("Access-Control-Allow-Headers", "*").header("Access-Control-Expose-Headers", "*").header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 
     @Path("delete/{movieid}")
@@ -227,6 +238,8 @@ public class MovieEndpoints {
         cr.setMethod("delete");
         cr.setPathParam(ppMap);
 
+        ServiceLogger.LOGGER.info(email);
+
         cr = CheckSession.verifySessionResponse(cr);
         if (cr.isSessionExpired()) {
             SessionResponseModel responseModel = new SessionResponseModel(cr.getResultCode(), ResultCodes.setMessage(cr.getResultCode()));
@@ -237,7 +250,7 @@ public class MovieEndpoints {
 
         sessionId = cr.getSessionID();
 
-        return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
+        return Response.status(Status.NO_CONTENT).header("Access-Control-Allow-Headers", "*").header("Access-Control-Expose-Headers", "*").header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 
     @Path("genre")
@@ -252,12 +265,12 @@ public class MovieEndpoints {
         String sessionId = headers.getHeaderString("sessionID");
         String transactionID = TransactionIDGenerator.generateTransactionID();
 
-        //verify session is given
-        if (sessionId == null) {
-            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
-        } else if (sessionId.length() == 0) {
-            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
-        }
+//        //verify session is given
+//        if (sessionId == null) {
+//            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+//        } else if (sessionId.length() == 0) {
+//            return Response.status(Status.BAD_REQUEST).header("email", email).entity(new DefaultResponseModel(-17)).build();
+//        }
 
         ClientRequest cr = new ClientRequest();
         cr.setURI(movieConfigs.getMoviesUri());
@@ -266,18 +279,18 @@ public class MovieEndpoints {
         cr.setSessionID(sessionId);
         cr.setTransactionID(transactionID);
         cr.setMethod("get");
-
-        cr = CheckSession.verifySessionResponse(cr);
-        if (cr.isSessionExpired()) {
-            SessionResponseModel responseModel = new SessionResponseModel(cr.getResultCode(), ResultCodes.setMessage(cr.getResultCode()));
-            return Response.status(Status.BAD_REQUEST).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
-        }
+//
+//        cr = CheckSession.verifySessionResponse(cr);
+//        if (cr.isSessionExpired()) {
+//            SessionResponseModel responseModel = new SessionResponseModel(cr.getResultCode(), ResultCodes.setMessage(cr.getResultCode()));
+//            return Response.status(Status.BAD_REQUEST).header("email", email).header("sessionID", sessionId).entity(responseModel).build();
+//        }
 
         threadPool.add(cr);
 
-        sessionId = cr.getSessionID();
+//        sessionId = cr.getSessionID();
 
-        return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
+        return Response.status(Status.NO_CONTENT).header("Access-Control-Expose-Headers", "*").header("Access-Control-Allow-Headers", "*").header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 
     @Path("genre/add")
@@ -317,6 +330,8 @@ public class MovieEndpoints {
         cr.setRequest(requestModel);
         cr.setMethod("post");
 
+        ServiceLogger.LOGGER.info(email);
+
         cr = CheckSession.verifySessionResponse(cr);
         if (cr.isSessionExpired()) {
             SessionResponseModel responseModel = new SessionResponseModel(cr.getResultCode(), ResultCodes.setMessage(cr.getResultCode()));
@@ -327,7 +342,7 @@ public class MovieEndpoints {
 
         sessionId = cr.getSessionID();
 
-        return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
+        return Response.status(Status.NO_CONTENT).header("Access-Control-Allow-Headers", "*").header("Access-Control-Expose-Headers", "*").header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 
     @Path("genre/{movieid}")
@@ -373,7 +388,7 @@ public class MovieEndpoints {
 
         sessionId = cr.getSessionID();
 
-        return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
+        return Response.status(Status.NO_CONTENT).header("Access-Control-Allow-Headers", "*").header("Access-Control-Expose-Headers", "*").header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 
     @Path("star/search")
@@ -435,7 +450,7 @@ public class MovieEndpoints {
 
         sessionId = cr.getSessionID();
 
-        return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
+        return Response.status(Status.NO_CONTENT).header("Access-Control-Allow-Headers", "*").header("Access-Control-Expose-Headers", "*").header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 
     @Path("star/{id}")
@@ -482,7 +497,7 @@ public class MovieEndpoints {
 
         sessionId = cr.getSessionID();
 
-        return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
+        return Response.status(Status.NO_CONTENT).header("Access-Control-Allow-Headers", "*").header("Access-Control-Expose-Headers", "*").header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 
     @Path("star/add")
@@ -532,7 +547,7 @@ public class MovieEndpoints {
 
         sessionId = cr.getSessionID();
 
-        return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
+        return Response.status(Status.NO_CONTENT).header("Access-Control-Allow-Headers", "*").header("Access-Control-Expose-Headers", "*").header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 
     @Path("star/starsin")
@@ -582,7 +597,7 @@ public class MovieEndpoints {
 
         sessionId = cr.getSessionID();
 
-        return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
+        return Response.status(Status.NO_CONTENT).header("Access-Control-Allow-Headers", "*").header("Access-Control-Expose-Headers", "*").header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 
     @Path("rating")
@@ -632,6 +647,6 @@ public class MovieEndpoints {
 
         sessionId = cr.getSessionID();
 
-        return Response.status(Status.NO_CONTENT).header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
+        return Response.status(Status.NO_CONTENT).header("Access-Control-Allow-Headers", "*").header("Access-Control-Expose-Headers", "*").header("email", email).header("sessionID", sessionId).header("transactionID", transactionID).header("delay", delay).build();
     }
 }

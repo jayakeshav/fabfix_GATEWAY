@@ -37,6 +37,8 @@ public class CheckSession {
         builder.header("sessionID",request.getSessionID());
         builder.header("transactionID",request.getTransactionID());
 
+        ServiceLogger.LOGGER.info("email:" + request.getEmail() + " sessionID" + request.getSessionID());
+
         Response response ;
 
         response=builder.post(Entity.entity(rm,MediaType.APPLICATION_JSON));

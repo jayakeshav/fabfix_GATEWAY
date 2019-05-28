@@ -187,6 +187,7 @@ public class Worker extends Thread {
 
     private void insertIntoDatabase(Response response, ClientRequest request){
         Connection con = GatewayService.getConPool().requestCon();
+//        ServiceLogger.LOGGER.info(response.readEntity(String.class));
         String statement = "insert into responses(transactionid, email, sessionid, response, httpstatus) values (?,?,?,?,?)";
         try {
             PreparedStatement query = con.prepareStatement(statement);
